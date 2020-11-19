@@ -3,7 +3,7 @@
  * Author:
  * Esteban Salazar Campos
  * 
- * Created on April 17, 2019, 11:33 AM
+ * Created on November 2020
  */
 
 
@@ -21,7 +21,7 @@ void main(void) {
     TRISA = 0b00000000; // RA0 - RA6 son outputs
     TRISAbits.RA0 = 1;  // Se modifica RA0 para que sea un input
     TRISAbits.RA1 = 1;  // Se modifica RA1 para que sea un input
-    TRISAbits.RA2 = 1;  // Se modifica RA1 para que sea un input
+    TRISAbits.RA2 = 1;  // Se modifica RA2 para que sea un input
     
     // Asigna Estado Inicial a la Salida del Puerto A3, A4, A5
     LATAbits.LA3 = 0;
@@ -30,36 +30,59 @@ void main(void) {
     
     // While True Principal
     while (1){
-        
-        
-         // Check de la Entrada 1
+         // Check de la Entrada a juego 1
         if (PORTAbits.RA0 == 1){
             //Se escribe el estado de las salidas
             LATAbits.LA3 = 1;
             LATAbits.LA4 = 0;
             LATAbits.LA5 = 0;
+            while(PORTAbits.RA3 == 1){  
+            //Para cerrar este while: LATAbits.LA4 = 0;
+                if (PORTAbits.RA2 == 1){
+                   LATAbits.LA3 = 0;
+                   LATAbits.LA4 = 0;
+                   LATAbits.LA5 = 0;
+                   return;
+            }
+            }
         }
         
-         // Check de la Entrada 2
+         // Check de la Entrada a juego 2
         if (PORTAbits.RA1 == 1){
-            
             //Se escribe el estado de las salidas
             LATAbits.LA3 = 0;
             LATAbits.LA4 = 1;
             LATAbits.LA5 = 0;
+            while(PORTAbits.RA4 == 1){  
+            //Para cerrar este while: LATAbits.LA4 = 0;
+                if (PORTAbits.RA0 == 1){
+                   LATAbits.LA3 = 0;
+                   LATAbits.LA4 = 0;
+                   LATAbits.LA5 = 0;
+                   return;
+            }
+            }
         }
         
-        // Check de la Entrada 3
+        // Check del juego 3
         if (PORTAbits.RA2 == 1){
-
             //Se escribe el estado de las salidas
             LATAbits.LA3 = 0;
             LATAbits.LA4 = 0;
             LATAbits.LA5 = 1;
+            while(PORTAbits.RA4 == 1){  
+            //Para cerrar este while: LATAbits.LA4 = 0;
+                if (PORTAbits.RA0 == 1){
+                   LATAbits.LA3 = 0;
+                   LATAbits.LA4 = 0;
+                   LATAbits.LA5 = 0;
+                   return;
+            }
+            }
         }
         
 
     }
     
     return;
-}
+    }
