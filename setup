@@ -20,10 +20,10 @@ void main(void) {
     // Selecci�n de Direcci�n de Data
     TRISA = 0b00000000; // RA0 - RA6 son outputs
     TRISAbits.RA0 = 1;  // Se modifica RA0 para que sea un input
-    TRISAbits.RA1 = 1;  // Se modifica RA3 para que sea un input
-    TRISAbits.RA2 = 1;
+    TRISAbits.RA1 = 1;  // Se modifica RA1 para que sea un input
+    TRISAbits.RA2 = 1;  // Se modifica RA1 para que sea un input
     
-    // Asigna Estado Inicial a la Salida del Puerto A1
+    // Asigna Estado Inicial a la Salida del Puerto A3, A4, A5
     LATAbits.LA3 = 0;
     LATAbits.LA4 = 0;
     LATAbits.LA5 = 0;
