@@ -1,0 +1,7 @@
+# R0,R1,R2 DIGITAL INPUTS
+# R3,R4,R5 DIGITAL OUTPUTS
+# R0 enciende R3, R2 lo apaga, R1 se bloquea
+# R1 enciende R4, R0 lo apaga, R2 se bloquea
+# R2 enciende R5, R0 lo apaga, R1 se bloquea
+
+#Los leds corresponden a la ejecución de cada juego
