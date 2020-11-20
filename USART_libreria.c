@@ -14,7 +14,6 @@ void USART_Init(long BAUD){
     TXSTAbits.BRGH = 0;     //Low Speed
     TXSTAbits.SYNC = 0;     //Asincrono
     RCSTAbits.SPEN = 1;     //Habilitar Tx y Rx
-    TXSTAbits.TXIE = 1;     //Habilita interrupciones
 
     //Transmisión
     TXSTAbits.TX9 = 0;      //8 bits
