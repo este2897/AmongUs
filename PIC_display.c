@@ -59,7 +59,7 @@ void __interrupt() isr(void){
         LATBbits.LB4 = 1;
         LATBbits.LB5 = 0;
 
-        PORTA = USART_Rx () //se copian todos los RAs
+        PORTA = USART_Rx (); //se copian todos los RAs
 
         //y se comparan los que corresponden a elección de usuario con luces
         if (PORTAbits.RA5 == PORTBbits.RB2){
