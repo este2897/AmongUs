@@ -9,8 +9,14 @@
 #include <xc.h>
 #include "configuracion.h"
 #include "USART_libreria.h"
+#define vref 5.00
 
-
+void PWMInit(){
+    OSCCON = 0x76;//oscilador
+    TRISC1 = 0;//CCP2 como salida del PWM
+    TRISC2 = 0;//CCP1 como salida del PWM
+    PR2 = 199;
+}
 
 
 void main(void) {
@@ -47,7 +53,30 @@ void main(void) {
     INTCONbits.INT0IE   = 1;   // Enable de INT0
     INTCONbits.INT0IF = USART_Rx();
 
+    if (USART_Rx() == 0xFF){
+        PWMInit();
+        int cicloPWM;
+        int cicloPWM2;
+        int minimo;
+        int maximo;
+        cicloPWM=80; //valor ciclo de trabajo PWM
+        minimo=cicloPWM-2;
+        maximo=cicloPWM+2;
+        OSCCON=0x72;//frecuencia oscilador
+        cicloPWM2=USART_Rx();
+        CCP1CON = 0x0C; //config PWM1
+        CCPR1L = cicloPWM;//valor fijo del ciclo de trabajo del PWM
+        CCP2CON = 0x0C; //config PWM1
+        CCPR2L = cicloPWM2;//valor variable ciclo de trabajo
+        //configs timer 2
+        T2CON = 0;
+        TMR2 = 0;
+        TMR2ON = 1;
+        if((cicloPWM>minimo)&&(cicloPWM<maximo)){
+            USART_Tx(1);
+        }
     }
+}
 
 // Interrupcion de Alta Prioridad
 void __interrupt() isr(void){
@@ -59,7 +88,7 @@ void __interrupt() isr(void){
         LATBbits.LB4 = 1;
         LATBbits.LB5 = 0;
 
-        PORTA = USART_Rx (); //se copian todos los RAs
+        PORTA = USART_Rx () //se copian todos los RAs
 
         //y se comparan los que corresponden a elección de usuario con luces
         if (PORTAbits.RA5 == PORTBbits.RB2){
@@ -81,7 +110,6 @@ void __interrupt() isr(void){
             }
           }
         }
-        //se limpia RAs
-        PORTA = 0x00;
     }
 }
+
